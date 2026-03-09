@@ -7,8 +7,9 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/word">
       <Routes>
+        <Route path="/" element={<Upload />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/word" element={<Word />} />
         <Route path="/wordplus" element={<WordPlus />} />
