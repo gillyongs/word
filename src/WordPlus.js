@@ -1,0 +1,44 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./App.css";
+
+function WordPlus() {
+  const [word, setWord] = useState("");
+  const [meaning, setMeaning] = useState("");
+  const [content, setContent] = useState("");
+
+  const navigate = useNavigate();
+
+  const saveWord = () => {
+    const data = localStorage.getItem("wordData");
+    let words = data ? JSON.parse(data) : [];
+
+    words.push({
+      word,
+      meaning,
+      content,
+    });
+
+    localStorage.setItem("wordData", JSON.stringify(words));
+
+    navigate("/word");
+  };
+
+  return (
+    <div className="container">
+      <div className="title">단어 추가</div>
+
+      <input className="input" placeholder="word" value={word} onChange={(e) => setWord(e.target.value)} />
+
+      <input className="input" placeholder="meaning" value={meaning} onChange={(e) => setMeaning(e.target.value)} />
+
+      <textarea className="input" placeholder="content" value={content} onChange={(e) => setContent(e.target.value)} />
+
+      <button className="saveBtn" onClick={saveWord}>
+        저장
+      </button>
+    </div>
+  );
+}
+
+export default WordPlus;
