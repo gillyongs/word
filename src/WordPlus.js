@@ -28,11 +28,27 @@ function WordPlus() {
     <div className="container">
       <div className="title">단어 추가</div>
 
-      <input className="input" placeholder="word" value={word} onChange={(e) => setWord(e.target.value)} />
+      <input
+        className="input"
+        placeholder="word"
+        value={word}
+        onChange={(e) => {
+          const value = e.target.value.replace(/[A-Z]/g, "");
+          setWord(value);
+        }}
+      />
 
       <input className="input" placeholder="meaning" value={meaning} onChange={(e) => setMeaning(e.target.value)} />
 
-      <textarea className="input" placeholder="content" value={content} onChange={(e) => setContent(e.target.value)} />
+      <textarea
+        className="input"
+        placeholder="content"
+        value={content}
+        onChange={(e) => {
+          const value = e.target.value.replace(/[A-Z]/g, "");
+          setWord(value);
+        }}
+      />
 
       <button className="saveBtn" onClick={saveWord}>
         저장
