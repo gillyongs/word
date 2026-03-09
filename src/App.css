@@ -49,9 +49,28 @@ body {
 .card {
   background: #1c1f26;
   border-radius: 16px;
-  padding: 18px;
+  padding: 36px 18px;
   margin-bottom: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.card {
+  transition: all 0.2s;
+}
+
+.card:active {
+  transform: scale(0.97);
+}
+
+.card:hover {
+  background: #2a2a2a;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background: #121212;
+  z-index: 10;
 }
 
 .word {
