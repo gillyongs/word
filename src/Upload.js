@@ -1,29 +1,45 @@
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 import "./App.css";
 
 function Upload() {
   const navigate = useNavigate();
+  const fileInputRef = useRef();
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
     const reader = new FileReader();
 
     reader.onload = (event) => {
-      const json = JSON.parse(event.target.result);
+      try {
+        const json = JSON.parse(event.target.result);
 
-      localStorage.setItem("wordData", JSON.stringify(json));
+        localStorage.setItem("wordData", JSON.stringify(json));
 
-      navigate("/word");
+        navigate("/word");
+      } catch {
+        alert("JSON 파일 형식이 아닙니다.");
+      }
     };
 
     reader.readAsText(file);
   };
 
-  return (
-    <div className="container">
-      <div className="title">JSON 업로드</div>
+  const openFile = () => {
+    fileInputRef.current.click();
+  };
 
-      <input type="file" accept=".json" onChange={handleUpload} />
+  return (
+    <div className="container uploadPage">
+      <div className="title">단어 JSON 업로드</div>
+
+      <button className="uploadBtn" onClick={openFile}>
+        📂 JSON 파일 선택
+      </button>
+
+      <input type="file" accept=".json" ref={fileInputRef} onChange={handleUpload} style={{ display: "none" }} />
     </div>
   );
 }
