@@ -124,3 +124,42 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
+
+.floatingAddBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  background: #4caf50;
+  color: white;
+
+  border: none;
+  border-radius: 50px;
+
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: bold;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+  cursor: pointer;
+}
+
+.floatingAddBtn:hover {
+  background: #45a049;
+}
+
+.sortBtn {
+  margin-right: 6px;
+}
+
+.searchBox {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 15px 0;
+
+  border-radius: 10px;
+  border: 1px solid #ccc;
+
+  font-size: 16px;
+}
