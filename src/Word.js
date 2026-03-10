@@ -4,7 +4,7 @@ import "./App.css";
 
 function Word() {
   const [words, setWords] = useState([]);
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openId, setOpenId] = useState(null);
   const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
@@ -17,24 +17,24 @@ function Word() {
     }
   }, []);
 
-  const toggleCard = (index) => {
-    if (openIndex === index) {
-      setOpenIndex(null);
+  const toggleCard = (id) => {
+    if (openId === id) {
+      setOpenId(null);
     } else {
-      setOpenIndex(index);
+      setOpenId(id);
     }
   };
 
   const shuffleWords = () => {
     const shuffled = [...words].sort(() => Math.random() - 0.5);
     setWords(shuffled);
-    setOpenIndex(null);
+    setOpenId(null);
   };
 
   const sortWords = () => {
     const sorted = [...words].sort((a, b) => a.word.localeCompare(b.word, "ko"));
     setWords(sorted);
-    setOpenIndex(null);
+    setOpenId(null);
   };
 
   const downloadJSON = () => {
@@ -56,11 +56,10 @@ function Word() {
     URL.revokeObjectURL(url);
   };
 
-  const handleLongPress = (index) => {
-    navigate("/wordedit/" + index);
+  const handleLongPress = (id) => {
+    navigate("/wordedit/" + id);
   };
 
-  // 검색 필터
   const filteredWords = words.filter((w) => (w.word + w.meaning + w.content).toLowerCase().includes(search.toLowerCase()));
 
   return (
@@ -69,43 +68,34 @@ function Word() {
         <div className="title">📚 단어장</div>
 
         <div className="btnGroup">
-          <button className="sortBtn" onClick={sortWords}>
-            🔤
-          </button>
-
-          <button className="saveJsonBtn" onClick={downloadJSON}>
-            💾
-          </button>
-
-          <button className="shuffleBtn" onClick={shuffleWords}>
-            🔀
-          </button>
+          <button onClick={sortWords}>🔤</button>
+          <button onClick={downloadJSON}>💾</button>
+          <button onClick={shuffleWords}>🔀</button>
         </div>
       </div>
 
-      {/* 검색창 */}
       <input className="searchBox" type="text" placeholder="🔍 단어 검색" value={search} onChange={(e) => setSearch(e.target.value)} />
 
-      {filteredWords.map((w, i) => {
+      {filteredWords.map((w) => {
         let timer;
 
         return (
           <div
             className="card"
-            key={i}
-            onClick={() => toggleCard(i)}
+            key={w.id}
+            onClick={() => toggleCard(w.id)}
             onMouseDown={() => {
-              timer = setTimeout(() => handleLongPress(i), 600);
+              timer = setTimeout(() => handleLongPress(w.id), 600);
             }}
             onMouseUp={() => clearTimeout(timer)}
             onMouseLeave={() => clearTimeout(timer)}
             onTouchStart={() => {
-              timer = setTimeout(() => handleLongPress(i), 600);
+              timer = setTimeout(() => handleLongPress(w.id), 600);
             }}
             onTouchEnd={() => clearTimeout(timer)}>
             <div className="word">{w.word}</div>
 
-            {openIndex === i && (
+            {openId === w.id && (
               <>
                 <div className="meaning">{w.meaning}</div>
                 <div className="content">{w.content}</div>
@@ -115,7 +105,6 @@ function Word() {
         );
       })}
 
-      {/* 우측 하단 고정 버튼 */}
       <button className="floatingAddBtn" onClick={() => navigate("/wordplus")}>
         + 단어
       </button>

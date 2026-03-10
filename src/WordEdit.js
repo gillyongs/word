@@ -12,31 +12,33 @@ function WordEdit() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("wordData"));
+    const data = JSON.parse(localStorage.getItem("wordData")) || [];
 
-    const target = data[id];
+    const target = data.find((w) => w.id == id);
 
-    setWord(target.word);
-    setMeaning(target.meaning);
-    setContent(target.content);
+    if (target) {
+      setWord(target.word);
+      setMeaning(target.meaning);
+      setContent(target.content);
+    }
   }, [id]);
 
   const saveEdit = () => {
-    const data = JSON.parse(localStorage.getItem("wordData"));
+    const data = JSON.parse(localStorage.getItem("wordData")) || [];
 
-    data[id] = { word, meaning, content };
+    const newData = data.map((w) => (w.id == id ? { ...w, word, meaning, content } : w));
 
-    localStorage.setItem("wordData", JSON.stringify(data));
+    localStorage.setItem("wordData", JSON.stringify(newData));
 
     navigate("/word");
   };
 
   const deleteWord = () => {
-    const data = JSON.parse(localStorage.getItem("wordData"));
+    const data = JSON.parse(localStorage.getItem("wordData")) || [];
 
-    data.splice(id, 1);
+    const newData = data.filter((w) => w.id != id);
 
-    localStorage.setItem("wordData", JSON.stringify(data));
+    localStorage.setItem("wordData", JSON.stringify(newData));
 
     navigate("/word");
   };

@@ -13,11 +13,14 @@ function WordPlus() {
     const data = localStorage.getItem("wordData");
     let words = data ? JSON.parse(data) : [];
 
-    words.push({
+    const newWord = {
+      id: Date.now(),
       word,
       meaning,
       content,
-    });
+    };
+
+    words.push(newWord);
 
     localStorage.setItem("wordData", JSON.stringify(words));
 
