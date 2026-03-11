@@ -85,12 +85,12 @@ function Word() {
             key={w.id}
             onClick={() => toggleCard(w.id)}
             onMouseDown={() => {
-              timer = setTimeout(() => handleLongPress(w.id), 2000);
+              timer = setTimeout(() => handleLongPress(w.id), 1200);
             }}
             onMouseUp={() => clearTimeout(timer)}
             onMouseLeave={() => clearTimeout(timer)}
             onTouchStart={() => {
-              timer = setTimeout(() => handleLongPress(w.id), 2000);
+              timer = setTimeout(() => handleLongPress(w.id), 1200);
             }}
             onTouchEnd={() => clearTimeout(timer)}>
             <div className="word">{w.word}</div>
