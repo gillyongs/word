@@ -47,11 +47,11 @@ function WordEdit() {
     <div className="container">
       <div className="title">단어 수정</div>
 
-      <input className="input" value={word} onChange={(e) => setWord(e.target.value)} />
+      <input className="input" autoCapitalize="none" value={word} onChange={(e) => setWord(e.target.value)} />
 
       <input className="input" value={meaning} onChange={(e) => setMeaning(e.target.value)} />
 
-      <textarea className="input" rows="5" value={content} onChange={(e) => setContent(e.target.value)} />
+      <textarea className="input" autoCapitalize="none" rows={10} value={content} onChange={(e) => setContent(e.target.value)} />
 
       <button className="saveBtn" onClick={saveEdit}>
         수정 저장
